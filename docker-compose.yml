@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    container_name: mc-backend
+    ports:
+      - "5000:5000"
+    env_file: .env
+    restart: always
+    depends_on:
+      - frontend
+  
+  frontend:
+    build: ./frontend
+    container_name: mc-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:5000
+    restart: always
